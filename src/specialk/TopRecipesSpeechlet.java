@@ -41,8 +41,8 @@ public class TopRecipesSpeechlet implements Speechlet{
 	}
 
 	private SpeechletResponse getTopRecipesResponse() {
-		// TODO change to another help message instead of this default
-		return getWelcomeResponse();
+		// TODO add logic to send recipes
+		return getCardResponse();
 	}
 
 	private SpeechletResponse getHelpResponse() {
@@ -82,25 +82,41 @@ public class TopRecipesSpeechlet implements Speechlet{
 
 	private SpeechletResponse getWelcomeResponse() {
 		String speechText = "Welcome to the Alexa Special K app. " +
-							"You can ask me to send you recipe ideas" +
+							"You can ask me to send you recipe ideas " +
 							"by saying, send me recipe ideas";
 		
-        String recipeTitles = recipes.getRecipeTitles();
-        
-     // Create the Simple card content.
-        SimpleCard card = new SimpleCard();
-        card.setTitle("Recipe Ideas");
-        card.setContent(recipeTitles); 
-       
+		String repromptText = "I can send you recipe ideas if you say" +
+							" send me recipes ideas";
+		
+
         // Create the plain text output.
+        PlainTextOutputSpeech welcomeSpeech = new PlainTextOutputSpeech();
+        welcomeSpeech.setText(speechText);
+        
         PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
-        speech.setText(speechText); 
+        welcomeSpeech.setText(repromptText);
 
         // Create reprompt
         Reprompt reprompt = new Reprompt();
         reprompt.setOutputSpeech(speech);
 
-        return SpeechletResponse.newAskResponse(speech, reprompt, card);
+        return SpeechletResponse.newAskResponse(welcomeSpeech, reprompt);
     }
+	
+	private SpeechletResponse getCardResponse() {
+	      String recipeTitles = recipes.getRecipeTitles();
+	      
+	   // Create the Simple card content.
+	     SimpleCard card = new SimpleCard();
+	     card.setTitle("Recipe Ideas");
+	     card.setContent(recipeTitles); 
+	      
+	  // Create the plain text output.
+	     String speechText = "Sending recipe ideas";
+	     PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
+	     speech.setText(speechText);
+		
+		return SpeechletResponse.newTellResponse(speech);
+	}
 
 }
