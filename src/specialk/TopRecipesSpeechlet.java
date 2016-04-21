@@ -20,6 +20,7 @@ public class TopRecipesSpeechlet implements Speechlet{
 	private static final String WEBSOURCE = "https://www.specialk.com/en_US/recipes.html";
 	private static final Logger log = LoggerFactory.getLogger(TopRecipesSpeechlet.class);
 	RequestRecipes recipes = new RequestRecipes(WEBSOURCE);
+	String recipeTitles = recipes.getRecipeTitles();
 	
 	@Override
 	public SpeechletResponse onIntent(final IntentRequest request, final Session session) throws SpeechletException {
@@ -104,7 +105,9 @@ public class TopRecipesSpeechlet implements Speechlet{
     }
 	
 	private SpeechletResponse getCardResponse() {
-	      String recipeTitles = recipes.getRecipeTitles();
+			
+	      String recipeTitle = "Cherry Cobler a la Special K";
+	      recipeTitles = recipes.readRecipesFromTextFile();
 	      
 	   // Create the Simple card content.
 	     SimpleCard card = new SimpleCard();
@@ -112,11 +115,11 @@ public class TopRecipesSpeechlet implements Speechlet{
 	     card.setContent(recipeTitles); 
 	      
 	  // Create the plain text output.
-	     String speechText = "Sending recipe ideas";
+	     String speechText = "Sending recipe ideas."; 
 	     PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
 	     speech.setText(speechText);
 		
-		return SpeechletResponse.newTellResponse(speech);
+		return SpeechletResponse.newTellResponse(speech, card);
 	}
 
 }
