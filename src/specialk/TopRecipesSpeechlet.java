@@ -17,10 +17,12 @@ import com.amazon.speech.ui.Reprompt;
 import com.amazon.speech.ui.SimpleCard;
 
 public class TopRecipesSpeechlet implements Speechlet{
-	private static final String WEBSOURCE = "https://www.specialk.com/en_US/recipes.html";
+	//only uncomment once the following class passes unit test
+//	private static final String WEBSOURCE = "https://www.specialk.com/en_US/recipes.html";
+//	RequestRecipes recipes = new RequestRecipes(WEBSOURCE);
 	private static final Logger log = LoggerFactory.getLogger(TopRecipesSpeechlet.class);
-	RequestRecipes recipes = new RequestRecipes(WEBSOURCE);
-	String recipeTitles = recipes.getRecipeTitles();
+	
+	private static Recipes recipes = new TextRecipes();
 	
 	@Override
 	public SpeechletResponse onIntent(final IntentRequest request, final Session session) throws SpeechletException {
@@ -105,17 +107,12 @@ public class TopRecipesSpeechlet implements Speechlet{
     }
 	
 	private SpeechletResponse getCardResponse() {
-			
-	      String recipeTitle = "Cherry Cobler a la Special K";
-	      recipeTitles = recipes.readRecipesFromTextFile();
 	      
 	   // Create the Simple card content.
-	     SimpleCard card = new SimpleCard();
-	     card.setTitle("Recipe Ideas");
-	     card.setContent(recipeTitles); 
-	      
+	     SimpleCard card = recipes.sendRandomRecipe(); 
+	     
 	  // Create the plain text output.
-	     String speechText = "Sending recipe ideas."; 
+	     String speechText = "Sending recipe ideas. Check the phone app for details"; 
 	     PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
 	     speech.setText(speechText);
 		
@@ -123,3 +120,5 @@ public class TopRecipesSpeechlet implements Speechlet{
 	}
 
 }
+
+
