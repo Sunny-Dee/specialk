@@ -2,7 +2,11 @@ package specialk;
 
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
-import com.amazon.speech.ui.SimpleCard;
+
+import com.amazon.speech.ui.*;
+
+import specialk.ui.Image;
+import specialk.ui.StandardCard;
 
 public class TextRecipes implements Recipes{
 	
@@ -42,21 +46,28 @@ public class TextRecipes implements Recipes{
 	}
 
 	@Override
-	public SimpleCard sendRandomRecipe() {
+	public Card sendRandomRecipe() {
 		int index = ThreadLocalRandom.current().nextInt(0, recipeList.size() + 1);
 		Recipe recipe = recipeList.get(index);
 		
 		//Build card contents
 		StringBuilder cardContent = new StringBuilder();
 		
-		cardContent.append(recipe.getIngredients() + "\n\n");
-		cardContent.append(recipe.getInstructions());
+		cardContent.append("Ingredients\n" + recipe.getIngredients() + "\n\n\n");
+		cardContent.append("Instructions\n" +  recipe.getInstructions());
+
+		//Create the image
+		Image image = new Image();
+		image.setSmallImageUrl("https://s3.amazonaws.com/spk-alexa.resources/img/specialk-logo/Special-K-logo-logotype-720x480.png");
+		image.setLargeImageUrl("https://s3.amazonaws.com/spk-alexa.resources/img/specialk-logo/Special-K-logo-logotype-1024x768.png");
 		
-		SimpleCard card = new SimpleCard();
-		card.setTitle(recipe.getTitle());
-		card.setContent(cardContent.toString());
+		StandardCard imageCard = new StandardCard(); 
+		imageCard.setImage(image);
+		imageCard.setTitle(recipe.getTitle());
+		imageCard.setText(cardContent.toString());
 		
-		return card;
+		
+		return imageCard;
 	}
 
 	public void addRecipe(Object recipe) {

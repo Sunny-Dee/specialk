@@ -12,9 +12,9 @@ import com.amazon.speech.speechlet.SessionStartedRequest;
 import com.amazon.speech.speechlet.Speechlet;
 import com.amazon.speech.speechlet.SpeechletException;
 import com.amazon.speech.speechlet.SpeechletResponse;
+import com.amazon.speech.ui.Card;
 import com.amazon.speech.ui.PlainTextOutputSpeech;
 import com.amazon.speech.ui.Reprompt;
-import com.amazon.speech.ui.SimpleCard;
 
 public class TopRecipesSpeechlet implements Speechlet{
 	//only uncomment once the following class passes unit test
@@ -109,10 +109,10 @@ public class TopRecipesSpeechlet implements Speechlet{
 	private SpeechletResponse getCardResponse() {
 	      
 	   // Create the Simple card content.
-	     SimpleCard card = recipes.sendRandomRecipe(); 
+	     Card card = recipes.sendRandomRecipe(); 
 	     
 	  // Create the plain text output.
-	     String speechText = "Sending recipe ideas. Check the phone app for details"; 
+	     String speechText = "Sending recipe ideas. Check the phone app for details."; 
 	     PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
 	     speech.setText(speechText);
 		
