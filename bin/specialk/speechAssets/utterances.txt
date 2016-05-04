@@ -1,0 +1,20 @@
+GetTopRecipes daily top five recipes to my email
+GetTopRecipes send me top five recipes for {date}
+GetTopRecipes email me SpecialK's top five recipes
+GetTopRecipes email me recipes
+GetTopRecipes top five recipes sent to me 
+GetTopRecipes send top five recipes to me
+GetTopRecipes send me recipe ideas
+GetTopRecipes what's for breakfast
+
+GetNextRecipe give me another idea
+GetNextRecipe give me a different idea
+GetNextRecipe send me another idea
+GetNextRecipe send me a different idea
+GetNextRecipe tell me another idea
+GetNextRecipe tell me a different idea
+GetNextRecipe give me another recipe idea
+GetNextRecipe give me a different recipe idea
+GetNextRecipe I don't like that
+GetNextRecipe next
+GetNextRecipe next idea

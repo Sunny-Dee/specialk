@@ -4,17 +4,8 @@ package specialk;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.amazon.speech.slu.Intent;
-import com.amazon.speech.speechlet.IntentRequest;
-import com.amazon.speech.speechlet.LaunchRequest;
-import com.amazon.speech.speechlet.Session;
-import com.amazon.speech.speechlet.SessionEndedRequest;
-import com.amazon.speech.speechlet.SessionStartedRequest;
-import com.amazon.speech.speechlet.Speechlet;
-import com.amazon.speech.speechlet.SpeechletException;
-import com.amazon.speech.speechlet.SpeechletResponse;
-import com.amazon.speech.ui.Card;
-import com.amazon.speech.ui.PlainTextOutputSpeech;
-import com.amazon.speech.ui.Reprompt;
+import com.amazon.speech.speechlet.*;
+import com.amazon.speech.ui.*;
 
 public class TopRecipesSpeechlet implements Speechlet{
 	//only uncomment once the following class passes unit test
@@ -35,7 +26,9 @@ public class TopRecipesSpeechlet implements Speechlet{
 		
 		if ("GetTopRecipes".equals(intentName)) {
             return getTopRecipesResponse();
-        } else if ("AMAZON.HelpIntent".equals(intentName)) {
+		} else if ("GetNextRecipe".equals(intentName)) {
+            return nextRecipeResponse();
+		} else if ("AMAZON.HelpIntent".equals(intentName)) {
             return getHelpResponse();
         } else {
             throw new SpeechletException("Invalid Intent");
@@ -43,9 +36,14 @@ public class TopRecipesSpeechlet implements Speechlet{
 
 	}
 
+	private SpeechletResponse nextRecipeResponse() {
+		String speechText = "Sending another recipe you may like"; 
+		return getCardResponse(speechText);
+	}
+	
 	private SpeechletResponse getTopRecipesResponse() {
-		// TODO add logic to send recipes
-		return getCardResponse();
+		String speechText = "Sending recipe ideas. Check the phone app for details."; 
+		return getCardResponse(speechText);
 	}
 
 	private SpeechletResponse getHelpResponse() {
@@ -85,34 +83,33 @@ public class TopRecipesSpeechlet implements Speechlet{
 
 	private SpeechletResponse getWelcomeResponse() {
 		String speechText = "Welcome to the Alexa Special K app. " +
-							"You can ask me to send you recipe ideas " +
-							"by saying, send me recipe ideas";
+							"I can send you recipe ideas " +
+							"if you say, send me recipe ideas";
 		
 		String repromptText = "I can send you recipe ideas if you say" +
-							" send me recipes ideas";
+							" send me recipe ideas";
 		
 
         // Create the plain text output.
         PlainTextOutputSpeech welcomeSpeech = new PlainTextOutputSpeech();
         welcomeSpeech.setText(speechText);
         
-        PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
+        PlainTextOutputSpeech repromptSpeech = new PlainTextOutputSpeech();
         welcomeSpeech.setText(repromptText);
 
         // Create reprompt
         Reprompt reprompt = new Reprompt();
-        reprompt.setOutputSpeech(speech);
+        reprompt.setOutputSpeech(repromptSpeech);
 
         return SpeechletResponse.newAskResponse(welcomeSpeech, reprompt);
     }
 	
-	private SpeechletResponse getCardResponse() {
+	private SpeechletResponse getCardResponse(String speechText) {
 	      
 	   // Create the Simple card content.
 	     Card card = recipes.sendRandomRecipe(); 
 	     
 	  // Create the plain text output.
-	     String speechText = "Sending recipe ideas. Check the phone app for details."; 
 	     PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
 	     speech.setText(speechText);
 		

@@ -1,0 +1,24 @@
+{
+ "intents": [
+    {
+        "intent": "GetTopRecipes",
+
+        "slots": [
+            {
+              "name": "date",
+              "type": "AMAZON.DATE"
+            }
+        ]
+    },
+     
+    {
+        "intent": "GetNextRecipe"
+    },
+    {
+        "intent": "AMAZON.HelpIntent"
+    },
+    {
+        "intent": "AMAZON.StopIntent"
+    }
+ ]
+}

@@ -2,9 +2,6 @@ package specialk;
 
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
-
-import com.amazon.speech.ui.*;
-
 import specialk.ui.Image;
 import specialk.ui.StandardCard;
 
@@ -46,20 +43,22 @@ public class TextRecipes implements Recipes{
 	}
 
 	@Override
-	public Card sendRandomRecipe() {
+	public StandardCard sendRandomRecipe() {
 		int index = ThreadLocalRandom.current().nextInt(0, recipeList.size() + 1);
 		Recipe recipe = recipeList.get(index);
 		
 		//Build card contents
 		StringBuilder cardContent = new StringBuilder();
 		
-		cardContent.append("Ingredients\n" + recipe.getIngredients() + "\n\n\n");
-		cardContent.append("Instructions\n" +  recipe.getInstructions());
+		cardContent.append("Ingredients\n" + recipe.getIngredients() + "\n \r\n");
+		cardContent.append("\r\nInstructions\n" +  recipe.getInstructions());
 
 		//Create the image
 		Image image = new Image();
-		image.setSmallImageUrl("https://s3.amazonaws.com/spk-alexa.resources/img/specialk-logo/Special-K-logo-logotype-720x480.png");
-		image.setLargeImageUrl("https://s3.amazonaws.com/spk-alexa.resources/img/specialk-logo/Special-K-logo-logotype-1024x768.png");
+//		image.setSmallImageUrl("https://s3.amazonaws.com/spk-alexa.resources/img/specialk-logo/Special-K-logo-logotype-720x480.png");
+//		image.setLargeImageUrl("https://s3.amazonaws.com/spk-alexa.resources/img/specialk-logo/Special-K-logo-logotype-1024x768.png");
+		image.setLargeImageUrl(recipe.getPicture());
+		image.setSmallImageUrl(recipe.getPicture());
 		
 		StandardCard imageCard = new StandardCard(); 
 		imageCard.setImage(image);
@@ -85,7 +84,8 @@ public class TextRecipes implements Recipes{
 					"1 cup Kellogg’s Special K Cereal Gluten Free Touch of Brown Sugar\n" + 
 					"1/2 cup fat-free milk or 1% milk\n" + 
 					"1 tablespoon pumpkin latte syrup or pumpkin beverage syrup\n" +
-					"1/8 to 1/4 teaspoon instant espresso coffee powder or instant coffee granules"));
+					"1/8 to 1/4 teaspoon instant espresso coffee powder or instant coffee granules",
+					"https://s3.amazonaws.com/spk-alexa.resources/img/recipe-img/pumpkin_spice_latte.jpg"));
 		
 		recipeList.add(new Recipe(
 					"Southwestern Breakfast Burrito Bowl",
@@ -105,7 +105,8 @@ public class TextRecipes implements Recipes{
 					"1 cup Kellogg’s Special K Cereal Protein, coarsely crushed\n" + 
 					"2 tablespoons salsa verde or other salsa\n" + 
 					"2 tablespoons canned black beans, rinsed and drained\n" +
-					"1 cherry tomato or grape tomato, halved"));
+					"1 cherry tomato or grape tomato, halved",
+					"https://s3.amazonaws.com/spk-alexa.resources/img/recipe-img/southwestern_breakfast_burrito_bowl.jpg"));
 		
 		recipeList.add(new Recipe(
 				"Special K French Toast",
@@ -119,7 +120,8 @@ public class TextRecipes implements Recipes{
 				"1/2 teaspoon vanilla\n1 cup Kellogg’s Special K Cereal Original\n" +
 				"1/2 small ripe banana, sliced\n"
 				+ "2 tablespoons sugar-free maple-flavored syrup or maple syrup\n" + 
-				"Microwave cooking times may vary."));
+				"Microwave cooking times may vary.", 
+				"https://s3.amazonaws.com/spk-alexa.resources/img/recipe-img/french_toast.jpg"));
 		
 		recipeList.add(new Recipe(
 				"Cherry Cobbler a la Kellogg’s Special K",
@@ -134,7 +136,8 @@ public class TextRecipes implements Recipes{
 				"1/2 cup vanilla almond milk\n" +
 				"1 cup Kellogg’s Special K Cereal Original\n" +
 				"1 teaspoon brown sugar \n" +
-				"1 Kellogg’s Special K Pastry Crisps Brown Sugar Cinnamon"));
+				"1 Kellogg’s Special K Pastry Crisps Brown Sugar Cinnamon",
+				"https://s3.amazonaws.com/spk-alexa.resources/img/recipe-img/cherry_cobbler.jpg"));
 		
 		recipeList.add(new Recipe(
 				"Honey-Hot Cocoa Kellogg’s Special K Shooters",
@@ -148,7 +151,9 @@ public class TextRecipes implements Recipes{
 				"2 tablespoons honey\n" +
 				"1/8 teaspoon cayenne pepper \n" +
 				"1 cup Kellogg’s Special K Cereal Original\n" +
-				"1 tablespoon raw coconut chips or unsweetened coconut flakes"));
+				"1 tablespoon raw coconut chips or unsweetened coconut flakes",
+				"https://s3.amazonaws.com/spk-alexa.resources/img/recipe-img/shooters.jpg"));
+		
 		
 		recipeList.add(new Recipe( "Kickn’ Crunch",
 				"Place KELLOGG’S SPECIAL K Cereal Protein in serving bowl. "+
@@ -156,7 +161,8 @@ public class TextRecipes implements Recipes{
 				"1/2 cup Kellogg’s Special K Cereal Protein\n" +
 				"1/4 cup plain low-fat yogurt\n" +
 				"2 tablespoons chopped fresh avocado\n" +
-				"1/8 teaspoon ground cayenne pepper"));
+				"1/8 teaspoon ground cayenne pepper",
+				"https://s3.amazonaws.com/spk-alexa.resources/img/recipe-img/kickin_crunch_recipe_pim.jpg"));
 	}
 	
 //	public static void main(String args[]){

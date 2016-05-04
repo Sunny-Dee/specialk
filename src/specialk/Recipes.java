@@ -1,6 +1,6 @@
 package specialk;
 
-import com.amazon.speech.ui.SimpleCard;
+import specialk.ui.StandardCard;
 
 public interface Recipes {
 	public String getRecipeTitle(int index);
@@ -8,6 +8,6 @@ public interface Recipes {
 	public String getIngredients(int index);
 	
 	public String list5Recipes();
-	public SimpleCard sendRandomRecipe();
+	public StandardCard sendRandomRecipe();
 	void addRecipe(Object recipe);
 }
